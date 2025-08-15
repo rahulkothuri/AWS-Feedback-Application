@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Feedback</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+  	<body>
+		<div class="header">
+			<h1>Feedback Form</h1>
+			<p>
+				Your feedback is very valuable to us. Enter your details and upload an image file to test the project.
+			</p>
+		</div>
+		<div class="form-container">
+			<form onsubmit="submitFeedback(event)">
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" required>
+			
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email">
+			
+				<label for="message">Feedback:</label>
+				<textarea id="message" name="message" required></textarea>
+			
+				<label for="image">Image:</label>
+				<input type="file" id="image" name="image">
+			
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<div class="footer">
+			<p>&copy; 2025 Feedback</p>
+		</div>
+    
+		<script>
+			function submitFeedback(event) {
+			event.preventDefault(); // Prevent default form submission behavior
+
+			// Get form data
+			const name = document.getElementById("name").value;
+			const email = document.getElementById("email").value;
+			const message = document.getElementById("message").value;
+			const image = document.getElementById("image").files[0];
+
+			// Create FileReader object to read image file
+			const reader = new FileReader();
+
+			// When FileReader finishes reading the file, encode it to base64 and make API request
+			reader.onloadend = () => {
+				// Encode image to base64
+				const base64Image = reader.result.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+
+				// Create FormData object
+				const formData = {
+					"name" : name,
+					"email" : email,
+					"message" : message,
+					"image" : base64Image
+				};
+				console.log(JSON.stringify(formData));
+
+				// Make API request to API Gateway endpoint
+				fetch("ENDPOINT-URL", {
+				method: "POST",
+				headers: {'Content-Type': 'application/json',},
+				body: JSON.stringify(formData)
+				})
+				.then(response => response.json())
+				.then(data => {
+				// Handle API response
+				})
+				.catch(error => {
+				// Handle API error
+				});
+			};
+
+			// Read image file as data URL
+			reader.readAsDataURL(image);
+			}
+		</script>
+	</body>
+</html>
