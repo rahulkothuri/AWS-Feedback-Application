@@ -22,9 +22,8 @@ This project demonstrates a hybrid cloud architecture pattern that combines:
 
 ## 🏛️ Architecture Diagram
 
-The application follows a multi-tier architecture:
 
-<img width="1766" height="1434" alt="image" src="https://github.com/user-attachments/assets/90fdbe14-385e-4d9c-a2ad-ee75c26572dc" />
+<img width="1205" height="1158" alt="image" src="https://github.com/user-attachments/assets/915eafc0-bdd4-47fb-a440-c49e457cae93" />
 
 
 - **Frontend**: Static web application hosted on EC2 instances
